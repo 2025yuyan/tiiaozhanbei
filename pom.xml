@@ -21,6 +21,13 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>vercel-maven</id>
+            <url>https://maven.pkg.github.com/vercel</url>
+        </repository>
+    </repositories>
+
     <build>
         <sourceDirectory>.</sourceDirectory>
         <plugins>
