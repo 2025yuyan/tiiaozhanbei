@@ -5,6 +5,7 @@
       "use": "@vercel/node"
     }
   ],
+  "regions": ["hkg1"],
   "rewrites": [
     {
       "source": "/api/:path*",
