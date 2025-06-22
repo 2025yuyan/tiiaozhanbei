@@ -58,39 +58,39 @@ function extractText(jsonString) {
 // --- 路由 ---
 
 // 认证
-app.post('/auth/send-code', (req, res) => {
+app.post('/api/auth/send-code', (req, res) => {
     res.json({ code: 0, msg: "验证码已发送" });
 });
 
-app.post('/auth/login-phone', (req, res) => {
+app.post('/api/auth/login-phone', (req, res) => {
     const token = uuidv4();
     tokens.add(token);
     res.json({ code: 0, msg: "登录成功", token, user: { id: 1, name: "李大爷" } });
 });
 
-app.post('/auth/login-account', (req, res) => {
+app.post('/api/auth/login-account', (req, res) => {
     const token = uuidv4();
     tokens.add(token);
     res.json({ code: 0, msg: "登录成功", token, user: { id: 1, name: "李大爷" } });
 });
 
-app.post('/auth/guest-login', (req, res) => {
+app.post('/api/auth/guest-login', (req, res) => {
     const token = uuidv4();
     tokens.add(token);
     res.json({ code: 0, msg: "登录成功", token, user: { id: 0, name: "体验用户" } });
 });
 
-app.post('/auth/forgot-password', (req, res) => {
+app.post('/api/auth/forgot-password', (req, res) => {
     res.json({ code: 0, msg: "新密码已发送到手机" });
 });
 
 // 用户
-app.get('/user/profile', (req, res) => {
+app.get('/api/user/profile', (req, res) => {
     res.json({ code: 0, user: userProfile });
 });
 
 // 健康数据
-app.get('/health/home', (req, res) => {
+app.get('/api/health/home', (req, res) => {
     res.json({
         code: 0,
         data: {
@@ -110,7 +110,7 @@ app.get('/health/home', (req, res) => {
     });
 });
 
-app.get('/health/records', (req, res) => {
+app.get('/api/health/records', (req, res) => {
     res.json({
         code: 0,
         records: [
@@ -122,29 +122,29 @@ app.get('/health/records', (req, res) => {
 });
 
 // 用药提醒
-app.get('/medicine/remind', (req, res) => {
+app.get('/api/medicine/remind', (req, res) => {
     res.json({ code: 0, remindList: medicineRemindList });
 });
-app.post('/medicine/remind', (req, res) => {
+app.post('/api/medicine/remind', (req, res) => {
     res.json({ code: 0, msg: "保存成功" });
 });
-app.delete('/medicine/remind', (req, res) => {
+app.delete('/api/medicine/remind', (req, res) => {
     res.json({ code: 0, msg: "删除成功" });
 });
 
 // 社区
-app.get('/community/news', (req, res) => {
+app.get('/api/community/news', (req, res) => {
     res.json({ code: 0, news: newsList });
 });
-app.get('/community/discuss', (req, res) => {
+app.get('/api/community/discuss', (req, res) => {
     res.json({ code: 0, discuss: discussList });
 });
-app.post('/community/discuss', (req, res) => {
+app.post('/api/community/discuss', (req, res) => {
     res.json({ code: 0, msg: "发布成功" });
 });
 
 // AI 接口
-app.post('/ai/diagnosis', async (req, res) => {
+app.post('/api/ai/diagnosis', async (req, res) => {
     const { symptoms } = req.body;
     if (!symptoms) {
         return res.status(400).json({ code: 400, msg: '症状是必填项' });
@@ -182,7 +182,7 @@ app.post('/ai/diagnosis', async (req, res) => {
     }
 });
 
-app.post('/ai/ask', async (req, res) => {
+app.post('/api/ai/ask', async (req, res) => {
     const { question } = req.body;
     if (!question) {
         return res.status(400).json({ code: 400, msg: '问题是必填项' });
@@ -220,7 +220,7 @@ app.post('/ai/ask', async (req, res) => {
     }
 });
 
-app.post('/ai/tts', (req, res) => {
+app.post('/api/ai/tts', (req, res) => {
     // 真实的TTS服务需要调用云服务接口，这里仅为模拟
     res.json({ code: 0, audioUrl: "https://example.com/audio/generated.mp3" });
 });
