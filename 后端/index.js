@@ -4,9 +4,25 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
+// --- CORS 白名单配置 ---
+const allowedOrigins = [
+  'https://2025yuyan.github.io',
+  'https://static-mp-ca10714d-a526-4f2e-9ce8-0d87e500bac6.next.bspapp.com'
+];
+
 // Middlewares
 app.use(cors({
-    origin: '*', // 允许所有来源的跨域请求
+    origin: function (origin, callback) {
+      // 允许没有 origin 的请求 (例如服务器到服务器的请求, Postman等)
+      if (!origin) return callback(null, true);
+      // 如果 origin 在白名单中，则允许
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        return callback(null, true);
+      }
+      // 否则，拒绝请求
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    },
     methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
