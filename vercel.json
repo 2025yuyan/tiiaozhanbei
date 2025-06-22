@@ -2,7 +2,7 @@
   "builds": [
     {
       "src": "api/Handler.java",
-      "use": "@vercel/java"
+      "use": "vercel-java"
     }
   ],
   "rewrites": [
