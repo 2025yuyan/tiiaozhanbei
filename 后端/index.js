@@ -32,7 +32,8 @@ const userProfile = {
 };
 // --- 数据存储结束 ---
 
-const AI_API_KEY = process.env.AI_API_KEY;
+const AI_DIAGNOSIS_KEY = process.env.AI_DIAGNOSIS_KEY;
+const AI_ASK_KEY = process.env.AI_ASK_KEY;
 
 // --- 辅助函数 ---
 function checkToken(req) {
@@ -148,8 +149,8 @@ app.post('/ai/diagnosis', async (req, res) => {
     if (!symptoms) {
         return res.status(400).json({ code: 400, msg: '症状是必填项' });
     }
-    if (!AI_API_KEY) {
-        return res.status(500).json({ code: 500, msg: '服务端未配置AI API KEY' });
+    if (!AI_DIAGNOSIS_KEY) {
+        return res.status(500).json({ code: 500, msg: '服务端未配置智能诊断的AI API KEY' });
     }
 
     try {
@@ -157,7 +158,7 @@ app.post('/ai/diagnosis', async (req, res) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${AI_API_KEY}`
+                'Authorization': `Bearer ${AI_DIAGNOSIS_KEY}`
             },
             body: JSON.stringify({
                 model: "jiutian-lan",
@@ -186,8 +187,8 @@ app.post('/ai/ask', async (req, res) => {
     if (!question) {
         return res.status(400).json({ code: 400, msg: '问题是必填项' });
     }
-    if (!AI_API_KEY) {
-        return res.status(500).json({ code: 500, msg: '服务端未配置AI API KEY' });
+    if (!AI_ASK_KEY) {
+        return res.status(500).json({ code: 500, msg: '服务端未配置AI问答的AI API KEY' });
     }
 
     try {
@@ -195,7 +196,7 @@ app.post('/ai/ask', async (req, res) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${AI_API_KEY}`
+                'Authorization': `Bearer ${AI_ASK_KEY}`
             },
             body: JSON.stringify({
                 model: "jiutian-lan",
